@@ -1,0 +1,60 @@
+{% extends "template.njk" %}
+
+  {% block content %}
+    <a class="govuk-back-link" href="/tasks">Back to tasks</a>
+    <h1 class="govuk-heading-xl">Create task</h1>
+
+    {% if error %}
+      <div class="govuk-error-summary" data-module="govuk-error-summary">
+        <div role="alert">
+          <h2 class="govuk-error-summary__title">
+            There is a problem
+          </h2>
+          <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+              <li>
+                {{ error }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    <form method="post" action="/tasks">
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="title">Title</label>
+        <input
+          class="govuk-input"
+          id="title"
+          name="title"
+          type="text"
+          value="{{ formData.title if formData else '' }}"
+          required
+        >
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="description">Description</label>
+        <textarea
+          class="govuk-textarea"
+          id="description"
+          name="description"
+        >{{ formData.description if formData else '' }}
+        </textarea>
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="dueDateTime">Due date and time</label>
+        <input
+          class="govuk-input govuk-input--width-20"
+          id="dueDateTime"
+          name="dueDateTime"
+          type="datetime-local"
+          value="{{ formData.dueDateTime if formData else '' }}"
+          required
+        >
+      </div>
+
+      <button class="govuk-button" type="submit">Create Task</button>
+    </form>
+  {% endblock %}

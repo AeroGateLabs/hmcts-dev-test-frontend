@@ -1,0 +1,63 @@
+{% extends "template.njk" %}
+
+{% block content %}
+
+  <h1 class="govuk-heading-xl">Tasks</h1>
+
+  <a href="/tasks/create" class="govuk-button">Create Task</a>
+
+  {% if tasks.length > 0 %}
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Title</th>
+        <th scope="col" class="govuk-table__header">Status</th>
+        <th scope="col" class="govuk-table__header">Due Date</th>
+        <th scope="col" class="govuk-table__header">Action</th>
+      </tr>
+      </thead>
+
+      <tbody class="govuk-table__body">
+      {% for task in tasks %}
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ task.title }}</td>
+
+          <td class="govuk-table__cell">
+            {% if task.status == 'PENDING' %}
+              <strong class="govuk-tag govuk-tag--grey">
+                {{ task.status }}
+              </strong>
+              {% elif task.status == 'ASSIGNED' %}
+              <strong class="govuk-tag govuk-tag--light-blue">
+                {{ task.status }}
+              </strong>
+              {% elif task.status == 'COMPLETED' %}
+              <strong class="govuk-tag govuk-tag--green">
+                {{ task.status }}
+              </strong>
+            {% endif %}
+          </td>
+
+          <td class="govuk-table__cell">
+            {{ task.dueDateTime }}
+          </td>
+
+          <td class="govuk-table__cell">
+            <a class="govuk-link" href="/tasks/{{ task.id }}">
+              View
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+
+    <p class="govuk-body">
+      No tasks found.
+    </p>
+
+  {% endif %}
+{% endblock %}
+

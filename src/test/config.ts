@@ -3,6 +3,8 @@ process.on('unhandledRejection', reason => {
   throw reason;
 });
 
+export const backendUrl = process.env.BACKEND_URL ?? 'http://localhost:4000';
+
 export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3100',
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
